@@ -1,4 +1,4 @@
-import { Alert, Loader } from '@aws-amplify/ui-react';
+import { Alert, Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { InvokeCommand, LambdaClient } from '@aws-sdk/client-lambda';
 import { Amplify } from 'aws-amplify';
@@ -61,31 +61,34 @@ function App() {
   return (
     <div className="flex flex-col h-full">
       <h1 className='text-2xl	font-bold'>GPT Researcher powerd by Amazon Nova</h1>
-      <div className="flex items-center p-4 bg-white">
-
-        <input
-          type="text"
-          className="flex-grow px-4 py-2 mr-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="メッセージを入力..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-        />
-        <button
-          className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none"
-          onClick={handleSend}
-        >
-          送信
-        </button>
+      <div className="p-4 border-gray-200">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Type your message here..."
+            className="w-full p-4 pr-24 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+          />
+          <button
+            disabled={input.length == 0 && !progress}
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-blue-500 hover:bg-blue-600 disabled:bg-gray-500 focus:outline-none px-4 py-2 rounded-lg flex items-center gap-2"
+            onClick={handleSend}>
+            Send Message
+          </button>
+        </div>
       </div>
-      <div hidden={!progress}>
-        <Loader variation="linear" />
+      <div hidden={!progress} className="p-8">
+        <div className='mb-1'><Placeholder size="large" /></div>
+        <div className='mb-1'><Placeholder /></div>
+        <div className='mb-1'><Placeholder size="small" /></div>
       </div>
 
       {error}
 
       <Markdown className='markdown items-left block text-start'>{output}</Markdown>
-      
+
     </div>
   )
 }
