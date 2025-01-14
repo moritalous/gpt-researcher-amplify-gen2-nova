@@ -37,10 +37,13 @@ function App() {
 
         if (apiResponse.Payload) {
           const payload = JSON.parse(new TextDecoder().decode(apiResponse.Payload))
+          if (typeof payload === 'object') {
+            throw new Error(JSON.stringify(payload))
+          }
           setOutput(payload)
         }
       } catch (e) {
-        console.error(e)
+        console.log((e as Error).message)
         setError(<div className='items-left block text-start'>
           <Alert
             variation="error"
@@ -48,7 +51,7 @@ function App() {
             hasIcon={true}
             heading="Error"
           >
-            e
+            {(e as Error).message}
           </Alert>
         </div>)
       }

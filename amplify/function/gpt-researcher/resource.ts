@@ -11,6 +11,7 @@ export const gptResearcherLambda = defineFunction((scope) => new DockerImageFunc
         "FAST_LLM": "litellm:bedrock/converse/amazon.nova-micro-v1:0",
         "SMART_LLM": "litellm:bedrock/converse/amazon.nova-micro-v1:0",
         "STRATEGIC_LLM": "litellm:bedrock/converse/amazon.nova-micro-v1:0",
-        "EMBEDDING": "bedrock:amazon.titan-embed-text-v2:0"
+        "EMBEDDING": "bedrock:amazon.titan-embed-text-v2:0",
+        "SCRAPER": "web_base_loader"
     }
 }))
