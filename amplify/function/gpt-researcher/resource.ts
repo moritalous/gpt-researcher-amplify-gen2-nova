@@ -8,9 +8,9 @@ export const gptResearcherLambda = defineFunction((scope) => new DockerImageFunc
     memorySize: 1024,
     environment: {
         "TAVILY_API_KEY": process.env.TAVILY_API_KEY || "",
-        "FAST_LLM": "litellm:bedrock/converse/anthropic.claude-3-5-haiku-20241022-v1:0",
-        "SMART_LLM": "litellm:bedrock/converse/anthropic.claude-3-5-sonnet-20241022-v2:0",
-        "STRATEGIC_LLM": "litellm:bedrock/converse/anthropic.claude-3-5-sonnet-20241022-v2:0",
+        "FAST_LLM": "litellm:bedrock/converse/amazon.nova-micro-v1:0",
+        "SMART_LLM": "litellm:bedrock/converse/amazon.nova-lite-v1:0",
+        "STRATEGIC_LLM": "litellm:bedrock/converse/amazon.nova-pro-v1:0",
         "EMBEDDING": "bedrock:amazon.titan-embed-text-v2:0",
         "SCRAPER": "web_base_loader"
     }

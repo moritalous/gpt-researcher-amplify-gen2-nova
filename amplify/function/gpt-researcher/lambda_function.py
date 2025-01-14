@@ -52,7 +52,8 @@ async def run(query: str):
     # レポートを出力
     client = boto3.client("bedrock-runtime")
     response = client.converse(
-        modelId="us.amazon.nova-pro-v1:0",
+        # modelId="us.amazon.nova-pro-v1:0",
+        modelId="us.anthropic.claude-3-5-sonnet-20241022-v2:0",
         messages=[{"role": "user", "content": [{"text": content}]}],
     )
 
