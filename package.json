@@ -18,6 +18,7 @@
   "devDependencies": {
     "@aws-amplify/backend": "^1.13.0",
     "@aws-amplify/backend-cli": "^1.4.6",
+    "@cdklabs/generative-ai-cdk-constructs": "^0.1.289",
     "@eslint/js": "^9.17.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",

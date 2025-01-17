@@ -1,5 +1,8 @@
+import os
+
 import boto3
 from asyncio import get_event_loop
+
 
 async def get_report(query: str, report_type: str):
     """
@@ -15,7 +18,11 @@ async def get_report(query: str, report_type: str):
 
     # GPTResearcherを初期化
     from gpt_researcher import GPTResearcher
+
     researcher = GPTResearcher(query, report_type)
+    researcher.cfg.llm_kwargs = {
+        "model_kwargs": {"model_id": os.environ["RESEARCH_ARN"]}
+    }
 
     # researchを実行
     research_result = await researcher.conduct_research()
@@ -28,6 +35,7 @@ async def get_report(query: str, report_type: str):
 
     return None, research_context, research_costs, research_images, research_sources
 
+
 async def run(query: str):
 
     report_type = "research_report"
@@ -36,6 +44,7 @@ async def run(query: str):
 
     # レポート生成のプロンプトを取得
     from gpt_researcher.prompts import get_prompt_by_report_type
+
     generate_prompt = get_prompt_by_report_type(report_type)
 
     # プロンプトを作成
@@ -52,8 +61,7 @@ async def run(query: str):
     # レポートを出力
     client = boto3.client("bedrock-runtime")
     response = client.converse(
-        # modelId="us.amazon.nova-pro-v1:0",
-        modelId="us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+        modelId=os.environ["GENERATE_ARN"],
         messages=[{"role": "user", "content": [{"text": content}]}],
     )
 
